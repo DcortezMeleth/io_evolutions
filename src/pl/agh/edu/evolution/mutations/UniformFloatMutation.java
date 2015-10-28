@@ -21,9 +21,11 @@ public class UniformFloatMutation extends AbstractMutation<FloatGenotype> {
     }
 
     @Override
-    protected void mutate(final FloatGenotype genotype) {
-        int index = getRng().nextInt(genotype.getGenes().size());
-        Double updatedValue = genotype.getGenes().get(index) + uniform();
-        genotype.getGenes().set(index, updatedValue);
+    protected FloatGenotype mutate(final FloatGenotype genotype) {
+        FloatGenotype result = new FloatGenotype(genotype);
+        int index = getRng().nextInt(result.getGenes().size());
+        Double updatedValue = result.getGenes().get(index) + uniform();
+        result.getGenes().set(index, updatedValue);
+        return result;
     }
 }

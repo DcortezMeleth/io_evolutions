@@ -15,6 +15,11 @@ public class FloatGenotype extends AbstractGenotype {
         this.genes = genes;
     }
 
+    public FloatGenotype(final FloatGenotype genotype) {
+        super();
+        this.genes = genotype.getGenes();
+    }
+
     public List<Double> getGenes() {
         return genes;
     }

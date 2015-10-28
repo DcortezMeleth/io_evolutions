@@ -21,8 +21,10 @@ public class UniformPointMutation extends AbstractMutation<PointGenotype> {
     }
 
     @Override
-    protected void mutate(final PointGenotype genotype) {
-        genotype.setX(genotype.getX() + uniform());
-        genotype.setY(genotype.getY() + uniform());
+    protected PointGenotype mutate(final PointGenotype genotype) {
+        PointGenotype result = new PointGenotype(genotype);
+        result.setX(result.getX() + uniform());
+        result.setY(result.getY() + uniform());
+        return result;
     }
 }

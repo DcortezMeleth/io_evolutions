@@ -12,10 +12,6 @@ public class NormalMutation extends AbstractMutation<FloatGenotype> {
 
     public static final double PROBABILITY = 0.01d;
 
-    public static final double MEAN = 100.0d;
-    
-    public static final double VARIANCE = 5.0d;
-
     public NormalMutation() {
         super(PROBABILITY, RADIUS);
     }
@@ -30,12 +26,14 @@ public class NormalMutation extends AbstractMutation<FloatGenotype> {
     }
 
     @Override
-    protected void mutate(final FloatGenotype genotype) {
+    protected FloatGenotype mutate(final FloatGenotype genotype) {
+        FloatGenotype result = new FloatGenotype(genotype);
         for(int i=0; i<genotype.getGenes().size(); i++) {
             if(super.shouldMutate()) {
-                Double newValue = getRng().nextGaussian() * VARIANCE + MEAN;
-                genotype.getGenes().set(i, newValue);
+                Double newValue = getRng().nextGaussian() * RADIUS + result.getGenes().get(i);
+                result.getGenes().set(i, newValue);
             }
         }
+        return result;
     }
 }

@@ -10,10 +10,16 @@ public class PointGenotype extends AbstractGenotype {
 
     private Double y;
 
-    PointGenotype(final Double x, final Double y) {
+    public PointGenotype(final Double x, final Double y) {
         super();
         this.x = x;
         this.y = y;
+    }
+
+    public PointGenotype(final PointGenotype genotype) {
+        super();
+        this.x = genotype.getX();
+        this.y = genotype.getY();
     }
 
     public Double getX() {
