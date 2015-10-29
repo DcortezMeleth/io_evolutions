@@ -34,6 +34,6 @@ public class FloatGenotype extends AbstractGenotype {
         for(Double f : getGenes()) {
             result += f + " ";
         }
-        return result + "], f:" + getFitness();
+        return result + "] ";
     }
 }

@@ -40,6 +40,6 @@ public class PointGenotype extends AbstractGenotype {
 
     @Override
     public String toString() {
-        return "(" + getX() + ", " + getY() + "), f:" + getFitness();
+        return "(" + getX() + ", " + getY() + ") ";
     }
 }

@@ -6,13 +6,4 @@ package pl.agh.edu.evolution.genotypes;
  */
 public abstract class AbstractGenotype {
 
-    private Double fitness = null;
-
-    public Double getFitness() {
-        return fitness;
-    }
-
-    public void setFitness(final Double fitness) {
-        this.fitness = fitness;
-    }
 }
