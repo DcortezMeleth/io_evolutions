@@ -3,15 +3,25 @@ package pl.agh.edu.evolution.experiment;
 import org.uncommons.maths.random.MersenneTwisterRNG;
 import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.*;
+import org.uncommons.watchmaker.framework.islands.IslandEvolution;
+import org.uncommons.watchmaker.framework.islands.IslandEvolutionObserver;
+import org.uncommons.watchmaker.framework.islands.RingMigration;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
+import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
+import org.uncommons.watchmaker.framework.selection.SigmaScaling;
 import org.uncommons.watchmaker.framework.selection.TournamentSelection;
-import org.uncommons.watchmaker.framework.termination.Stagnation;
-import pl.agh.edu.evolution.crossovers.AverageCrossover;
-import pl.agh.edu.evolution.evaluation.DeJongEvaluation;
-import pl.agh.edu.evolution.factory.PointGenotypeFactory;
-import pl.agh.edu.evolution.genotypes.PointGenotype;
-import pl.agh.edu.evolution.mutations.UniformPointMutation;
+import org.uncommons.watchmaker.framework.termination.GenerationCount;
+import pl.agh.edu.evolution.crossovers.AverageFloatCrossover;
+import pl.agh.edu.evolution.crossovers.SinglePointCrossover;
+import pl.agh.edu.evolution.crossovers.UniformCrossover;
+import pl.agh.edu.evolution.evaluation.FloatRastriginEvaluation;
+import pl.agh.edu.evolution.evaluation.SchwefelEvaluation;
+import pl.agh.edu.evolution.factory.FloatGenotypeFactory;
+import pl.agh.edu.evolution.genotypes.FloatGenotype;
+import pl.agh.edu.evolution.mutations.NormalMutation;
+import pl.agh.edu.evolution.mutations.UniformFloatMutation;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -22,33 +32,79 @@ import java.util.Random;
 public class Experiment {
 
     public static void main(String[] args) {
-        CandidateFactory<PointGenotype> factory = new PointGenotypeFactory();
+        CandidateFactory<FloatGenotype> factory = new FloatGenotypeFactory();
 
-        List<EvolutionaryOperator<PointGenotype>> operators = new LinkedList<>();
-        operators.add(new AverageCrossover());
-        operators.add(new UniformPointMutation());
+        List<EvolutionaryOperator<FloatGenotype>> operators = new LinkedList<>();
+        operators.add(new AverageFloatCrossover());
+        operators.add(new UniformFloatMutation());
 
-        EvolutionPipeline<PointGenotype> pipeline = new EvolutionPipeline<>(operators);
+        EvolutionPipeline<FloatGenotype> pipeline = new EvolutionPipeline<>(operators);
 
-        FitnessEvaluator<PointGenotype> evaluator = new DeJongEvaluation();
+        FitnessEvaluator<FloatGenotype> evaluator = new FloatRastriginEvaluation();
 
         Probability probability = new Probability(1.0);
         SelectionStrategy<Object> strategy = new TournamentSelection(probability);
 
         Random rng = new MersenneTwisterRNG();
-        EvolutionEngine<PointGenotype> engine =
+        EvolutionEngine<FloatGenotype> engine =
                 new GenerationalEvolutionEngine<>(factory, pipeline, evaluator, strategy, rng);
 
-        engine.addEvolutionObserver(new EvolutionObserver<PointGenotype>() {
+        List<EvolutionaryOperator<FloatGenotype>> operators2 = new LinkedList<>();
+        operators2.add(new SinglePointCrossover());
+        operators2.add(new UniformCrossover());
+        operators2.add(new NormalMutation());
+
+        EvolutionPipeline<FloatGenotype> pipeline2 = new EvolutionPipeline<>(operators2);
+
+        FitnessEvaluator<FloatGenotype> evaluator2 = new SchwefelEvaluation();
+
+        SelectionStrategy<Object> strategy2 = new RouletteWheelSelection();
+
+        EvolutionEngine<FloatGenotype> engine2 =
+                new GenerationalEvolutionEngine<>(factory, pipeline2, evaluator2, strategy2, rng);
+
+        List<EvolutionaryOperator<FloatGenotype>> operators3 = new LinkedList<>();
+        operators3.add(new UniformCrossover());
+        operators3.add(new NormalMutation());
+
+        EvolutionPipeline<FloatGenotype> pipeline3 = new EvolutionPipeline<>(operators3);
+
+        FitnessEvaluator<FloatGenotype> evaluator3 = new FloatRastriginEvaluation();
+
+        SelectionStrategy<Object> strategy3 = new SigmaScaling();
+
+        EvolutionEngine<FloatGenotype> engine3 =
+                new GenerationalEvolutionEngine<>(factory, pipeline3, evaluator3, strategy3, rng);
+
+        List<EvolutionEngine<FloatGenotype>> islands = new ArrayList<>();
+        islands.add(engine);
+        islands.add(engine2);
+        islands.add(engine3);
+
+        IslandEvolution<FloatGenotype> islandEvolution =
+                new IslandEvolution<>(islands, new RingMigration(), true, rng);
+
+        islandEvolution.addEvolutionObserver(new IslandEvolutionObserver<FloatGenotype>() {
+
             @Override
-            public void populationUpdate(PopulationData<? extends PointGenotype> data) {
+            public void islandPopulationUpdate(int islandIndex, PopulationData<? extends FloatGenotype> data) {
+                System.out.println("Island:" + islandIndex + "Generation: " + data.getGenerationNumber()
+                        + ", best candidate: " + data.getBestCandidate()
+                        + ", with fitness: " + data.getBestCandidateFitness());
+            }
+
+            @Override
+            public void populationUpdate(PopulationData<? extends FloatGenotype> data) {
                 System.out.println("Generation: " + data.getGenerationNumber()
                         + ", best candidate: " + data.getBestCandidate()
                         + ", with fitness: " + data.getBestCandidateFitness());
             }
         });
 
-        engine.evolve(100, 0, new Stagnation(200, true));
+        islandEvolution.evolve(120, // Population size per island.
+                5, // Elitism for each island.
+                50, // Epoch length (no. generations).
+                3, // Migrations from each island at each epoch.
+                new GenerationCount(1000));
     }
-
 }
