@@ -50,6 +50,10 @@ public class EMASApplet extends AbstractExampleApplet {
 
     private EvolutionMonitor<FloatGenotype> monitor;
 
+    private JLabel populationLabel;
+
+    private JLabel elitismLabel;
+
     public static void main(String[] args) throws IOException {
         EMASApplet gui = new EMASApplet();
         gui.displayInFrame("EMAS");
@@ -66,13 +70,13 @@ public class EMASApplet extends AbstractExampleApplet {
     }
 
     private Component createParametersPanel() {
-        JLabel populationLabel = new JLabel("Population size per island: ");
+        populationLabel = new JLabel("Population size per island: ");
         populationSpinner = new JSpinner(new SpinnerNumberModel(10, 2, 1000, 1));
         populationSpinner.setMaximumSize(populationSpinner.getMinimumSize());
         JLabel islandsLabel = new JLabel("Islands: ");
         islandsSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 10, 1));
         islandsSpinner.setMaximumSize(islandsSpinner.getMinimumSize());
-        JLabel elitismLabel = new JLabel("Elitism: ");
+        elitismLabel = new JLabel("Elitism: ");
         elitismSpinner = new JSpinner(new SpinnerNumberModel(2, 1, 1000, 1));
         elitismSpinner.setMaximumSize(elitismSpinner.getMinimumSize());
         JLabel migrationsLabel = new JLabel("Migrations: ");
