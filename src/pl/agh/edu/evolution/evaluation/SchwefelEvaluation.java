@@ -5,6 +5,10 @@ import pl.agh.edu.evolution.genotypes.FloatGenotype;
 
 import java.util.List;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
+
 /**
  * @author Bartosz
  *         Created on 2015-10-29.
@@ -17,13 +21,13 @@ public class SchwefelEvaluation implements FitnessEvaluator<FloatGenotype> {
     public double getFitness(final FloatGenotype candidate, final List<? extends FloatGenotype> population) {
         Double sum = candidate.getGenes().size() * X;
         for(Double gene : candidate.getGenes()) {
-            sum += Math.sin(Math.sqrt(Math.abs(gene))) - gene;
+            sum -= gene * sin(sqrt(abs(gene)));
         }
         return sum;
     }
 
     @Override
     public boolean isNatural() {
-        return true;
+        return false;
     }
 }

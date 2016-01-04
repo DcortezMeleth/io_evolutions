@@ -11,11 +11,11 @@ import java.util.Random;
  */
 public class FloatGenotypeFactory extends AbstractGenotypeFactory<FloatGenotype> {
 
-    private static final Double UPPERBOUND = 1.0d;
+    private static final Double UPPERBOUND = -5.12d;
 
-    private static final Double LOWERBOUND = 0.0d;
+    private static final Double LOWERBOUND = 5.12d;
 
-    private static final Integer DIM = 3;
+    private static final Integer DIM = 50;
 
     private Integer dim;
 

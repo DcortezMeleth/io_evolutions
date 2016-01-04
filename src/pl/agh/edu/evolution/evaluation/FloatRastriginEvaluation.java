@@ -5,6 +5,10 @@ import pl.agh.edu.evolution.genotypes.FloatGenotype;
 
 import java.util.List;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.pow;
+import static java.lang.Math.PI;
+
 /**
  * @author Bartosz
  *         Created on 2015-10-29.
@@ -17,13 +21,13 @@ public class FloatRastriginEvaluation implements FitnessEvaluator<FloatGenotype>
     public double getFitness(final FloatGenotype candidate, final List<? extends FloatGenotype> population) {
         Double sum = (double) (candidate.getGenes().size() * A);
         for(Double gene : candidate.getGenes()) {
-            sum += Math.pow(gene, 2) - A * Math.cos(2 * Math.PI * gene);
+            sum += pow(gene, 2) - A * cos(2 * PI * gene);
         }
         return sum;
     }
 
     @Override
     public boolean isNatural() {
-        return true;
+        return false;
     }
 }
