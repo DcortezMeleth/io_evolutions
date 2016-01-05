@@ -11,16 +11,12 @@ import java.util.List;
  */
 public class UniformCrossover extends AbstractCrossover<FloatGenotype> {
 
-    private static final int SIZE = 100;
-
     private Double probability = 0.5d;
 
     public UniformCrossover() {
-        super(SIZE);
     }
 
-    public UniformCrossover(final int size, final Double probability) {
-        super(size);
+    public UniformCrossover(final Double probability) {
         this.probability = probability;
     }
 

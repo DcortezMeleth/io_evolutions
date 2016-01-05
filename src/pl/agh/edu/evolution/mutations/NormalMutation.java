@@ -21,11 +21,6 @@ public class NormalMutation extends AbstractMutation<FloatGenotype> {
     }
 
     @Override
-    protected boolean shouldMutate() {
-        return true;
-    }
-
-    @Override
     protected FloatGenotype mutate(final FloatGenotype genotype) {
         FloatGenotype result = new FloatGenotype(genotype);
         for(int i=0; i<genotype.getGenes().size(); i++) {

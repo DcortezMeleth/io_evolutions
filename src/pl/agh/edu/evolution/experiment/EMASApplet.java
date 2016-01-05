@@ -13,9 +13,12 @@ import org.uncommons.watchmaker.swing.AbortControl;
 import org.uncommons.watchmaker.swing.ProbabilityParameterControl;
 import org.uncommons.watchmaker.swing.evolutionmonitor.EvolutionMonitor;
 import pl.agh.edu.evolution.crossovers.AverageFloatCrossover;
+import pl.agh.edu.evolution.crossovers.UniformCrossover;
 import pl.agh.edu.evolution.evaluation.FloatRastriginEvaluation;
+import pl.agh.edu.evolution.evaluation.SchwefelEvaluation;
 import pl.agh.edu.evolution.factory.FloatGenotypeFactory;
 import pl.agh.edu.evolution.genotypes.FloatGenotype;
+import pl.agh.edu.evolution.mutations.NormalMutation;
 import pl.agh.edu.evolution.mutations.UniformFloatMutation;
 
 import javax.swing.*;
@@ -71,16 +74,16 @@ public class EMASApplet extends AbstractExampleApplet {
 
     private Component createParametersPanel() {
         populationLabel = new JLabel("Population size per island: ");
-        populationSpinner = new JSpinner(new SpinnerNumberModel(10, 2, 1000, 1));
+        populationSpinner = new JSpinner(new SpinnerNumberModel(120, 2, 1000, 1));
         populationSpinner.setMaximumSize(populationSpinner.getMinimumSize());
         JLabel islandsLabel = new JLabel("Islands: ");
         islandsSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 10, 1));
         islandsSpinner.setMaximumSize(islandsSpinner.getMinimumSize());
         elitismLabel = new JLabel("Elitism: ");
-        elitismSpinner = new JSpinner(new SpinnerNumberModel(2, 1, 1000, 1));
+        elitismSpinner = new JSpinner(new SpinnerNumberModel(15, 1, 1000, 1));
         elitismSpinner.setMaximumSize(elitismSpinner.getMinimumSize());
         JLabel migrationsLabel = new JLabel("Migrations: ");
-        migrationsSpinner = new JSpinner(new SpinnerNumberModel(2, 1, 1000, 1));
+        migrationsSpinner = new JSpinner(new SpinnerNumberModel(20, 1, 1000, 1));
         migrationsSpinner.setMaximumSize(migrationsSpinner.getMinimumSize());
         JLabel selectionLabel = new JLabel("Selection pressure: ");
         selectionPressureControl = new ProbabilityParameterControl(Probability.EVENS, Probability.ONE, 2, new
@@ -161,16 +164,17 @@ public class EMASApplet extends AbstractExampleApplet {
 
             Random rng = new MersenneTwisterRNG();
 
+            FitnessEvaluator<FloatGenotype> evaluator = new FloatRastriginEvaluation();
             for(int i = 0; i < this.islands; i++) {
-                CandidateFactory<FloatGenotype> factory = new FloatGenotypeFactory();
+                CandidateFactory<FloatGenotype> factory = new FloatGenotypeFactory(-5.12, 5.12, 20);
 
                 List<EvolutionaryOperator<FloatGenotype>> operators = new LinkedList<>();
                 operators.add(new AverageFloatCrossover());
                 operators.add(new UniformFloatMutation());
+                operators.add(new UniformCrossover());
+                operators.add(new NormalMutation());
 
                 EvolutionPipeline<FloatGenotype> pipeline = new EvolutionPipeline<>(operators);
-
-                FitnessEvaluator<FloatGenotype> evaluator = new FloatRastriginEvaluation();
 
                 SelectionStrategy<Object> strategy = new TournamentSelection(selectionPressureControl
                         .getNumberGenerator());
@@ -183,7 +187,7 @@ public class EMASApplet extends AbstractExampleApplet {
 
 
             IslandEvolution<FloatGenotype> islandEvolution = new IslandEvolution<>(islands, new RingMigration(),
-                    true, rng);
+                    evaluator.isNatural(), rng);
             islandEvolution.addEvolutionObserver(monitor);
 
             return islandEvolution.evolve(populationSize, // Population size per island.

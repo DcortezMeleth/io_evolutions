@@ -11,16 +11,6 @@ import java.util.List;
  */
 public class SinglePointCrossover extends AbstractCrossover<FloatGenotype> {
 
-    private static final int SIZE = 100;
-
-    public SinglePointCrossover() {
-        super(SIZE);
-    }
-
-    public SinglePointCrossover(final int size) {
-        super(size);
-    }
-
     @Override
     protected FloatGenotype cross(final FloatGenotype parent1, final FloatGenotype parent2) {
         List<Double> combinedGenes = new ArrayList<>();

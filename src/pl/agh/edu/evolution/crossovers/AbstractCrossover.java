@@ -3,6 +3,7 @@ package pl.agh.edu.evolution.crossovers;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 import pl.agh.edu.evolution.genotypes.AbstractGenotype;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -14,21 +15,17 @@ public abstract class AbstractCrossover<T extends AbstractGenotype> implements E
 
     private Random rng = new Random();
 
-    private int size;
-
-    public AbstractCrossover(final int size) {
-        this.size = size;
-    }
-
     @Override
     public List<T> apply(final List<T> selectedCandidates, final Random rng) {
-        for(int i = selectedCandidates.size(); i < this.size; i++) {
-            T parent1 = selectedCandidates.get(rng.nextInt(selectedCandidates.size()));
-            T parent2 = selectedCandidates.get(rng.nextInt(selectedCandidates.size()));
+        List<T> crossedCandidates = new ArrayList<>();
+        int size = selectedCandidates.size();
+        for(int i = 0; i < size; i++) {
+            T parent1 = selectedCandidates.get(rng.nextInt(size));
+            T parent2 = selectedCandidates.get(rng.nextInt(size));
             T genotype = cross(parent1, parent2);
-            selectedCandidates.add(genotype);
+            crossedCandidates.add(genotype);
         }
-        return selectedCandidates;
+        return crossedCandidates;
     }
 
     protected abstract T cross(T parent1, T parent2);
