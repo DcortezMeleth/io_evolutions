@@ -40,3 +40,58 @@ Trzecia daje nam podgl¹d na to jaki fitness osi¹gn¹³ najlepszy osobnik na ka¿dej
 
 Ostatnia z kart pokazuje nam aktualne zu¿ycie pamiêci przez JVM.
 ![EMASApplet](docs/images/EMASApplet_jvm.png?raw=true)
+
+
+## Zmiany w eksperymencie
+
+Aby dokonaæ zmian z przeprowadzanym eksperymencie (tj. zmieniæ funkcjê ewaluj¹c¹ lub operatory) nale¿y dokonaæ zmian w
+pliku `EMASApplet.java`.
+
+Miejscem w którym ustawiane s¹ wszystkie atrybuty eksperymentu jest funkcja `performTask()` w klasie `EvolutionTask`.
+
+Modyfikacje mo¿emy robiæ na kilku poziomach.
+
+### Osobnik
+Pierwsz¹ rzecz¹ jak¹ nale¿y ustaliæ jest to na jakich osobnikach bêdziemy operowaæ. Zaimplementowane s¹ 2 ich typy.
+* PointGenotyp - osobnik reprezentuj¹cy punkt w 2-wymairowej przestrzeni 
+* FloatGenotype - osobnik reprezentuj¹cy punkt w n-wymiarowej przestrzeni
+
+### Operatory
+Operatory dzielimy na 2 rodzaje, krzy¿owania (crossover) i mutacje (mutation).
+
+**Krzy¿owania** 
+Operuj¹ one na 2 osobnikach, rodzicach, tworz¹c z ich czêœci potomka, czyli nowego osobnika.
+
+Zaimplementowane s¹ nastêpuj¹ce krzy¿owania dla PointGenotype:
+* _AverageCrossover_ - wspó³rzêdne potomka s¹ œredni¹ wspó³rzêdnych rodziców
+
+Oraz poni¿sze dla FloatGenotype: 
+* _AverageFloatCrossover_ - wspó³rzêdne potomka s¹ œredni¹ wspó³rzêdnych rodziców
+* _UniformCrossover_ - kolejne wspó³rzêdne potomka s¹ losowo wybierane od jednego lub drugiego z rodziców
+* _SinglePointCrossover_ - pierwsze p wspó³rzêdnych brane jest od pierwszego z rodziców, a reszta od drugiego, gdzie p 
+losujemy z przedzia³u 0 <= p <= n
+
+**Mutacje**
+Operuj¹ na 1 osobniku losowo przekszta³caj¹c czêœæ jego wspó³rzêdnych.
+
+Zaimplementowane s¹ nastêpuj¹ce mutacje dla PointGenotype:
+* _UniformPointMutation_ - do wspó³rzêdnych potomka dodawane lub odejmowane s¹ niewielkie wartoœci losowane z rozk³adu 
+jednostajnego
+
+Oraz poni¿sze dla FloatGenotype: 
+* _NormalMutation_ -  do wspó³rzêdnych potomka dodawane lub odejmowane s¹ niewielkie wartoœci losowane z rozk³adu 
+normalnego
+* _UniformFloatMutation_ - do losowo wybranej wspó³rzêdnej potomka dodawana lub odejmowana jest niewielka wartoœc 
+losowana z rosk³adu jednostajnego
+
+### Funkcje ewaluj¹ce
+Odpowiadaj¹ one za rozwi¹zywany przez nas problem. 
+
+
+Zaimplementowane s¹ nastêpuj¹ce funkcja dla PointGenotype:
+* _DeJongEvaluation_ - rozwi¹zuje pierwsz¹ funkcjê De Jong'a
+* _RastriginEvaluation_ - rozwi¹zuje funckjê Rastrigina
+
+Oraz poni¿sze dla FloatGenotype: 
+* _RastriginEvaluation_ - rozwi¹zuje funkcjê Rastrigina
+* _SchwefelEvaluation_ - rozwi¹zuje funkcjê Schwefela
