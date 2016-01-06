@@ -24,10 +24,8 @@ public class NormalMutation extends AbstractMutation<FloatGenotype> {
     protected FloatGenotype mutate(final FloatGenotype genotype) {
         FloatGenotype result = new FloatGenotype(genotype);
         for(int i=0; i<genotype.getGenes().size(); i++) {
-            if(super.shouldMutate()) {
-                Double newValue = getRng().nextGaussian() * RADIUS + result.getGenes().get(i);
-                result.getGenes().set(i, newValue);
-            }
+            Double newValue = getRng().nextGaussian() * RADIUS + result.getGenes().get(i);
+            result.getGenes().set(i, newValue);
         }
         return result;
     }
