@@ -1,108 +1,108 @@
-# Podrêcznik u¿ytownika
+# PodrÄ™cznik uÅ¼ytownika
 
 
 ## Budowanie i uruchomienie
 
-W naszym projekcie do budowania artefaktów wykorzystaliœmy _gradle_.
-Aby zbudowaæ i uruchomiæ experyment nale¿y najpierw zainstalowaæ to narzêdzie i dodaj jego katalog domowy do zmiennie
-œrodowsikowej _PATH_. Nastêpnie komenda której u¿ywamy do zbudowania wykonywalnego jara to:
+W naszym projekcie do budowania artefaktÃ³w wykorzystaliÅ›my _gradle_.
+Aby zbudowaÄ‡ i uruchomiÄ‡ experyment naleÅ¼y najpierw zainstalowaÄ‡ to narzÄ™dzie i dodaj jego katalog domowy do zmiennie
+Å›rodowsikowej _PATH_. NastÄ™pnie komenda ktÃ³rej uÅ¼ywamy do zbudowania wykonywalnego jara to:
 ```bash
 gradle fatJar
 ```
-Po zbudowaniu artefaktu uruchamiamy go za pomoc¹ komendy:
+Po zbudowaniu artefaktu uruchamiamy go za pomocÄ… komendy:
 ```bash
 java -jar build\libs\evolutions-1.0-SNAPSHOT.jar
 ```
 
-Naszym oczom powinien siê wtedy ukazaæ dzia³aj¹cy applet w formie jak poni¿ej.
+Naszym oczom powinien siÄ™ wtedy ukazaÄ‡ dziaÅ‚ajÄ…cy applet w formie jak poniÅ¼ej.
 ![EMASApplet](docs/images/EMASApplet.png?raw=true)
 
-Przed rozpoczêciem eksperymentu nale¿y ustawiæ jego parametry które znajduj¹ siê w górnej czêœci okna.
-S¹ to po koleji:
-* _Population size per island_ - populacja startowa na ka¿dej z wysp
+Przed rozpoczÄ™ciem eksperymentu naleÅ¼y ustawiÄ‡ jego parametry ktÃ³re znajdujÄ… siÄ™ w gÃ³rnej czÄ™Å›ci okna.
+SÄ… to po koleji:
+* _Population size per island_ - populacja startowa na kaÅ¼dej z wysp
 * _Islands_ - liczba wysp
-* _Elitism_ - liczba elti (najlepszych osobników pozostaj¹cych w populacji)
-* _Migrations_ - liczba osobników które w ka¿dej z epok migruj¹ pomiêdzy wyspami
-* _Selection pressure_ - prawdopodobieñstwo z jakim lepszy osobnik wygrywa w selekcji turniejowej
+* _Elitism_ - liczba elti (najlepszych osobnikÃ³w pozostajÄ…cych w populacji)
+* _Migrations_ - liczba osobnikÃ³w ktÃ³re w kaÅ¼dej z epok migrujÄ… pomiÄ™dzy wyspami
+* _Selection pressure_ - prawdopodobieÅ„stwo z jakim lepszy osobnik wygrywa w selekcji turniejowej
 
-Gdy to uczynimi mo¿emy uruchomiæ eksperyment przyciskiem _Start_. 
-Od tego momenetu mo¿emy na bie¿¹co œledziæ jego postêpy. Widoczne s¹ one na kilku kartach widocznych poni¿ej paska 
-parametrów.
+Gdy to uczynimi moÅ¼emy uruchomiÄ‡ eksperyment przyciskiem _Start_. 
+Od tego momenetu moÅ¼emy na bieÅ¼Ä…co Å›ledziÄ‡ jego postÄ™py. Widoczne sÄ… one na kilku kartach widocznych poniÅ¼ej paska 
+parametrÃ³w.
 
 Pierwsza z kart pokazuje nam najlepszego kandydata w danym momencie.
 ![EMASApplet](docs/images/EMASApplet_fittest.png?raw=true)
 
-Druga pokazuje wykres na którym widaæ jak zmienia siê wartoœæ funkcji dopasowania (fitness) w czasie.
+Druga pokazuje wykres na ktÃ³rym widaÄ‡ jak zmienia siÄ™ wartoÅ›Ä‡ funkcji dopasowania (fitness) w czasie.
 ![EMASApplet](docs/images/EMASApplet_example.png?raw=true)
 
-Trzecia daje nam podgl¹d na to jaki fitness osi¹gn¹³ najlepszy osobnik na ka¿dej z wysp.
+Trzecia daje nam podglÄ…d na to jaki fitness osiÄ…gnÄ…Å‚ najlepszy osobnik na kaÅ¼dej z wysp.
 ![EMASApplet](docs/images/EMASApplet_islands.png?raw=true)
 
-Ostatnia z kart pokazuje nam aktualne zu¿ycie pamiêci przez JVM.
+Ostatnia z kart pokazuje nam aktualne zuÅ¼ycie pamiÄ™ci przez JVM.
 ![EMASApplet](docs/images/EMASApplet_jvm.png?raw=true)
 
 ### Uruchomienie konsolowe
 
-Istnieje równie¿ mo¿liwoœæ uruchomienia eksperymentu w konsoli, bez appletu, co mo¿e byæ przydatne gdy bêdziemy chcieli
-uruchomiæ go w œrodowisku bez interfejsu graficznego, jak np. zdalny serwer albo klaster obliczeniowy.
+Istnieje rÃ³wnieÅ¼ moÅ¼liwoÅ›Ä‡ uruchomienia eksperymentu w konsoli, bez appletu, co moÅ¼e byÄ‡ przydatne gdy bÄ™dziemy chcieli
+uruchomiÄ‡ go w Å›rodowisku bez interfejsu graficznego, jak np. zdalny serwer albo klaster obliczeniowy.
 
-Aby tego dokonaæ nale¿y zmieniæ property `mainClassName` w pliku `build.gradle`.
-Nastêpnie uruchamiamy eksperyment w ten sam sposób co przy wersji appletowej.
+Aby tego dokonaÄ‡ naleÅ¼y zmieniÄ‡ property `mainClassName` w pliku `build.gradle`.
+NastÄ™pnie uruchamiamy eksperyment w ten sam sposÃ³b co przy wersji appletowej.
 
-Utworzona jest ju¿ przyk³¹dowa klasa `Experiment` która mo¿e pos³u¿yæ nam w tym celu.
-Mo¿na w niej oczywiœcie zmieniæ wszystkie parametry tak samo jak w wersji appletowej.
-Nale¿y jednak pamiêtaæ, ¿e s¹ one tutaj definiowane na poziomie kodu, tam gdzie operatory i reszta atrybutów. 
+Utworzona jest juÅ¼ przykÅ‚Ä…dowa klasa `Experiment` ktÃ³ra moÅ¼e posÅ‚uÅ¼yÄ‡ nam w tym celu.
+MoÅ¼na w niej oczywiÅ›cie zmieniÄ‡ wszystkie parametry tak samo jak w wersji appletowej.
+NaleÅ¼y jednak pamiÄ™taÄ‡, Å¼e sÄ… one tutaj definiowane na poziomie kodu, tam gdzie operatory i reszta atrybutÃ³w. 
 
 
 ## Zmiany w eksperymencie
 
-Aby dokonaæ zmian z przeprowadzanym eksperymencie (tj. zmieniæ funkcjê ewaluj¹c¹ lub operatory) nale¿y dokonaæ zmian w
+Aby dokonaÄ‡ zmian z przeprowadzanym eksperymencie (tj. zmieniÄ‡ funkcjÄ™ ewalujÄ…cÄ… lub operatory) naleÅ¼y dokonaÄ‡ zmian w
 pliku `EMASApplet.java`.
 
-Miejscem w którym ustawiane s¹ wszystkie atrybuty eksperymentu jest funkcja `performTask()` w klasie `EvolutionTask`.
+Miejscem w ktÃ³rym ustawiane sÄ… wszystkie atrybuty eksperymentu jest funkcja `performTask()` w klasie `EvolutionTask`.
 
-Modyfikacje mo¿emy robiæ na kilku poziomach.
+Modyfikacje moÅ¼emy robiÄ‡ na kilku poziomach.
 
 ### Osobnik
-Pierwsz¹ rzecz¹ jak¹ nale¿y ustaliæ jest to na jakich osobnikach bêdziemy operowaæ. Zaimplementowane s¹ 2 ich typy.
-* PointGenotyp - osobnik reprezentuj¹cy punkt w 2-wymairowej przestrzeni 
-* FloatGenotype - osobnik reprezentuj¹cy punkt w n-wymiarowej przestrzeni
+PierwszÄ… rzeczÄ… jakÄ… naleÅ¼y ustaliÄ‡ jest to na jakich osobnikach bÄ™dziemy operowaÄ‡. Zaimplementowane sÄ… 2 ich typy.
+* PointGenotyp - osobnik reprezentujÄ…cy punkt w 2-wymairowej przestrzeni 
+* FloatGenotype - osobnik reprezentujÄ…cy punkt w n-wymiarowej przestrzeni
 
 ### Operatory
-Operatory dzielimy na 2 rodzaje, krzy¿owania (crossover) i mutacje (mutation).
+Operatory dzielimy na 2 rodzaje, krzyÅ¼owania (crossover) i mutacje (mutation).
 
-**Krzy¿owania** 
-Operuj¹ one na 2 osobnikach, rodzicach, tworz¹c z ich czêœci potomka, czyli nowego osobnika.
+**KrzyÅ¼owania** 
+OperujÄ… one na 2 osobnikach, rodzicach, tworzÄ…c z ich czÄ™Å›ci potomka, czyli nowego osobnika.
 
-Zaimplementowane s¹ nastêpuj¹ce krzy¿owania dla PointGenotype:
-* _AverageCrossover_ - wspó³rzêdne potomka s¹ œredni¹ wspó³rzêdnych rodziców
+Zaimplementowane sÄ… nastÄ™pujÄ…ce krzyÅ¼owania dla PointGenotype:
+* _AverageCrossover_ - wspÃ³Å‚rzÄ™dne potomka sÄ… Å›redniÄ… wspÃ³Å‚rzÄ™dnych rodzicÃ³w
 
-Oraz poni¿sze dla FloatGenotype: 
-* _AverageFloatCrossover_ - wspó³rzêdne potomka s¹ œredni¹ wspó³rzêdnych rodziców
-* _UniformCrossover_ - kolejne wspó³rzêdne potomka s¹ losowo wybierane od jednego lub drugiego z rodziców
-* _SinglePointCrossover_ - pierwsze p wspó³rzêdnych brane jest od pierwszego z rodziców, a reszta od drugiego, gdzie p 
-losujemy z przedzia³u 0 <= p <= n
+Oraz poniÅ¼sze dla FloatGenotype: 
+* _AverageFloatCrossover_ - wspÃ³Å‚rzÄ™dne potomka sÄ… Å›redniÄ… wspÃ³Å‚rzÄ™dnych rodzicÃ³w
+* _UniformCrossover_ - kolejne wspÃ³Å‚rzÄ™dne potomka sÄ… losowo wybierane od jednego lub drugiego z rodzicÃ³w
+* _SinglePointCrossover_ - pierwsze p wspÃ³Å‚rzÄ™dnych brane jest od pierwszego z rodzicÃ³w, a reszta od drugiego, gdzie p 
+losujemy z przedziaÅ‚u 0 <= p <= n
 
 **Mutacje**
-Operuj¹ na 1 osobniku losowo przekszta³caj¹c czêœæ jego wspó³rzêdnych.
+OperujÄ… na 1 osobniku losowo przeksztaÅ‚cajÄ…c czÄ™Å›Ä‡ jego wspÃ³Å‚rzÄ™dnych.
 
-Zaimplementowane s¹ nastêpuj¹ce mutacje dla PointGenotype:
-* _UniformPointMutation_ - do wspó³rzêdnych potomka dodawane lub odejmowane s¹ niewielkie wartoœci losowane z rozk³adu 
+Zaimplementowane sÄ… nastÄ™pujÄ…ce mutacje dla PointGenotype:
+* _UniformPointMutation_ - do wspÃ³Å‚rzÄ™dnych potomka dodawane lub odejmowane sÄ… niewielkie wartoÅ›ci losowane z rozkÅ‚adu 
 jednostajnego
 
-Oraz poni¿sze dla FloatGenotype: 
-* _NormalMutation_ -  do wspó³rzêdnych potomka dodawane lub odejmowane s¹ niewielkie wartoœci losowane z rozk³adu 
+Oraz poniÅ¼sze dla FloatGenotype: 
+* _NormalMutation_ -  do wspÃ³Å‚rzÄ™dnych potomka dodawane lub odejmowane sÄ… niewielkie wartoÅ›ci losowane z rozkÅ‚adu 
 normalnego
-* _UniformFloatMutation_ - do losowo wybranej wspó³rzêdnej potomka dodawana lub odejmowana jest niewielka wartoœc 
-losowana z rosk³adu jednostajnego
+* _UniformFloatMutation_ - do losowo wybranej wspÃ³Å‚rzÄ™dnej potomka dodawana lub odejmowana jest niewielka wartoÅ›c 
+losowana z roskÅ‚adu jednostajnego
 
-### Funkcje ewaluj¹ce
-Odpowiadaj¹ one za rozwi¹zywany przez nas problem. 
+### Funkcje ewalujÄ…ce
+OdpowiadajÄ… one za rozwiÄ…zywany przez nas problem. 
 
-Zaimplementowane s¹ nastêpuj¹ce funkcja dla PointGenotype:
-* _DeJongEvaluation_ - rozwi¹zuje pierwsz¹ funkcjê De Jong'a
-* _RastriginEvaluation_ - rozwi¹zuje funckjê Rastrigina
+Zaimplementowane sÄ… nastÄ™pujÄ…ce funkcja dla PointGenotype:
+* _DeJongEvaluation_ - rozwiÄ…zuje pierwszÄ… funkcjÄ™ De Jong'a
+* _RastriginEvaluation_ - rozwiÄ…zuje funckjÄ™ Rastrigina
 
-Oraz poni¿sze dla FloatGenotype: 
-* _RastriginEvaluation_ - rozwi¹zuje funkcjê Rastrigina
-* _SchwefelEvaluation_ - rozwi¹zuje funkcjê Schwefela
+Oraz poniÅ¼sze dla FloatGenotype: 
+* _RastriginEvaluation_ - rozwiÄ…zuje funkcjÄ™ Rastrigina
+* _SchwefelEvaluation_ - rozwiÄ…zuje funkcjÄ™ Schwefela

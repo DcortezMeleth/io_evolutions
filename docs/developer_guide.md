@@ -1,32 +1,32 @@
-# Podrêcznik developera
+# PodrÄ™cznik developera
 
 
-Rozszerzenia projektu mo¿na dokonaæ w kilku miejscach. Ka¿de z nich ma inny wp³yw na przebieg eksperymentu. 
-Przy wiêkszoœci zmian nale¿y dodaæ nowe klasy, a nastêpnie u¿yæ ich w odpowiednim miejscu w klasie `EMASApplet`.
-Oczywiœcie mo¿na równie¿ stworzyæ w³asny applet lub dokonaæ zmian w ju¿ istniej¹cym. 
+Rozszerzenia projektu moÅ¼na dokonaÄ‡ w kilku miejscach. KaÅ¼de z nich ma inny wpÅ‚yw na przebieg eksperymentu. 
+Przy wiÄ™kszoÅ›ci zmian naleÅ¼y dodaÄ‡ nowe klasy, a nastÄ™pnie uÅ¼yÄ‡ ich w odpowiednim miejscu w klasie `EMASApplet`.
+OczywiÅ›cie moÅ¼na rÃ³wnieÅ¼ stworzyÄ‡ wÅ‚asny applet lub dokonaÄ‡ zmian w juÅ¼ istniejÄ…cym. 
 
-W celu lepszego zrozumienia struktóry projektu polecam zacz¹æ lekturê od [Podrêcznika u¿ytkownika](user_guide.md).
+W celu lepszego zrozumienia struktÃ³ry projektu polecam zaczÄ…Ä‡ lekturÄ™ od [PodrÄ™cznika uÅ¼ytkownika](user_guide.md).
 
 ## Osobniki
 
-Aby dodaæ nowy typ osobnika nale¿y stworzyæ odpowiedni¹ klasê w pakiecie `genotypes`.
-W celu ³atwiejszej konfiguracji póŸniejszych operatorów oraz mo¿liwoœæ korzystania z typów generycznych, zalecane jest
-podziedziczenie w tym celu z klasy `AbstractGenotype`, ale nie jest to konieczne. Pola osobnika mog¹ byæ dowolnie 
-definiowane, powinny jednak daæ mo¿liwoœæ wyliczenia pewnej wartoœci (fitnessu) osobnika, która nastêpnie pozwoli nam 
-oceniæ który z osobników jest dla naszych celów lepszy, a który gorszy. 
+Aby dodaÄ‡ nowy typ osobnika naleÅ¼y stworzyÄ‡ odpowiedniÄ… klasÄ™ w pakiecie `genotypes`.
+W celu Å‚atwiejszej konfiguracji pÃ³Åºniejszych operatorÃ³w oraz moÅ¼liwoÅ›Ä‡ korzystania z typÃ³w generycznych, zalecane jest
+podziedziczenie w tym celu z klasy `AbstractGenotype`, ale nie jest to konieczne. Pola osobnika mogÄ… byÄ‡ dowolnie 
+definiowane, powinny jednak daÄ‡ moÅ¼liwoÅ›Ä‡ wyliczenia pewnej wartoÅ›ci (fitnessu) osobnika, ktÃ³ra nastÄ™pnie pozwoli nam 
+oceniÄ‡ ktÃ³ry z osobnikÃ³w jest dla naszych celÃ³w lepszy, a ktÃ³ry gorszy. 
  
-Warto w klasie osobnika nadpisaæ metodê `toString`, która umo¿liwi nam potem lepsze logowanie postêpów.
+Warto w klasie osobnika nadpisaÄ‡ metodÄ™ `toString`, ktÃ³ra umoÅ¼liwi nam potem lepsze logowanie postÄ™pÃ³w.
 
 ## Fabryki
 
-Kolejnym elementem który jest bardzo œciœle powi¹zany z osobnikiem, a który musimy zaimplementowaæ w razie tworzenia
-nowego typu osobnika jest Fabryka, która odpowiada za generowanie nowych osobników. W celu implementacji nowej fabryki,
-mo¿emy rozszerzyæ klasê `AbstractGenotypeFactory<T>`. Udostêpnia nam ona metodê `uniform()` zwracaj¹c¹ zmienn¹ losow¹ 
-z rozk³adu jednostajnego oraz pola `lowerbound` i `upperbound` które odpowiadaj¹ za granice tego przedzia³u. Granice
-te ustawiamy w konstuktorze klasy implementuj¹cej.
+Kolejnym elementem ktÃ³ry jest bardzo Å›ciÅ›le powiÄ…zany z osobnikiem, a ktÃ³ry musimy zaimplementowaÄ‡ w razie tworzenia
+nowego typu osobnika jest Fabryka, ktÃ³ra odpowiada za generowanie nowych osobnikÃ³w. W celu implementacji nowej fabryki,
+moÅ¼emy rozszerzyÄ‡ klasÄ™ `AbstractGenotypeFactory<T>`. UdostÄ™pnia nam ona metodÄ™ `uniform()` zwracajÄ…cÄ… zmiennÄ… losowÄ… 
+z rozkÅ‚adu jednostajnego oraz pola `lowerbound` i `upperbound` ktÃ³re odpowiadajÄ… za granice tego przedziaÅ‚u. Granice
+te ustawiamy w konstuktorze klasy implementujÄ…cej.
 
-Do implementacji mamy tylko jedn¹ metodê, która ma za zadanie stworzyæ nowego kandydata.
-Przyk³adowa implementacja poni¿ej.
+Do implementacji mamy tylko jednÄ… metodÄ™, ktÃ³ra ma za zadanie stworzyÄ‡ nowego kandydata.
+PrzykÅ‚adowa implementacja poniÅ¼ej.
 ```java
 @Override
 public PointGenotype generateRandomCandidate(final Random rng) {
@@ -34,25 +34,25 @@ public PointGenotype generateRandomCandidate(final Random rng) {
 }
 ```
 
-W przypadku gdy nasza klasa nie dziedziczy po `AbstractGenotype` musimy rozszerzaæ klasê `AbstractGenotypeFactory<T>`.
-Do implementacji mamy wtedy t¹ sam¹ metodê.
+W przypadku gdy nasza klasa nie dziedziczy po `AbstractGenotype` musimy rozszerzaÄ‡ klasÄ™ `AbstractGenotypeFactory<T>`.
+Do implementacji mamy wtedy tÄ… samÄ… metodÄ™.
 
 ## Operatory
 
-Jak ju¿ zosta³o wczeœniej wspomniane w projekcie istniej¹ 2 typy operatorów. Krzy¿owania z pakiecie `crossovers` 
+Jak juÅ¼ zostaÅ‚o wczeÅ›niej wspomniane w projekcie istniejÄ… 2 typy operatorÃ³w. KrzyÅ¼owania z pakiecie `crossovers` 
 i mutacje w pakiecie `mutations`. 
 
-### Krzy¿owania
+### KrzyÅ¼owania
 
-Bazow¹ klas¹ dla krzy¿owañ w  jest klasa `AbstractCrossover<T>`. Odopowiada ona za mechanizm który z populacji wybiera 
-osobniki, które pos³ó¿¹ nam za rodziców do stworzenia nowego pokolenia. Dodatkowo udostêpnie nam obiekt `Random` jako
-jedno z pól klasy.
+BazowÄ… klasÄ… dla krzyÅ¼owaÅ„ w  jest klasa `AbstractCrossover<T>`. Odopowiada ona za mechanizm ktÃ³ry z populacji wybiera 
+osobniki, ktÃ³re posÅ‚Ã³Å¼Ä… nam za rodzicÃ³w do stworzenia nowego pokolenia. Dodatkowo udostÄ™pnie nam obiekt `Random` jako
+jedno z pÃ³l klasy.
 
-Jako i¿ jest to typ generyczny, implementacje tej klasy powinny rozszerzaæ klasê bazow¹ z odpowiednim typem, tak by
-mo¿liwym by³o skorzystanie w metodach tej klasy z w³aœciwoœci konkretnego osobnika. 
+Jako iÅ¼ jest to typ generyczny, implementacje tej klasy powinny rozszerzaÄ‡ klasÄ™ bazowÄ… z odpowiednim typem, tak by
+moÅ¼liwym byÅ‚o skorzystanie w metodach tej klasy z wÅ‚aÅ›ciwoÅ›ci konkretnego osobnika. 
 
-Nowa klasa musi implemenotwaæ jedynie jedn¹ metodê, której przyk³adow¹ implementacjê (dla typu `PointGenotype`) 
-widaæ poni¿ej. Dostaje ona 2 rodziców i ma z nich stworzyæ nowego potomka, który bêdzie czêœci¹ nowego pokolania.
+Nowa klasa musi implemenotwaÄ‡ jedynie jednÄ… metodÄ™, ktÃ³rej przykÅ‚adowÄ… implementacjÄ™ (dla typu `PointGenotype`) 
+widaÄ‡ poniÅ¼ej. Dostaje ona 2 rodzicÃ³w i ma z nich stworzyÄ‡ nowego potomka, ktÃ³ry bÄ™dzie czÄ™Å›ciÄ… nowego pokolania.
 ```java
 @Override
 protected PointGenotype cross(final PointGenotype parent1, final PointGenotype parent2) {
@@ -62,18 +62,18 @@ protected PointGenotype cross(final PointGenotype parent1, final PointGenotype p
 
 ### Mutacje
 
-Bazow¹ klas¹ dla krzy¿owañ w  jest klasa `AbstractMutation<T>`. Odopowiada ona za mechanizm który z na wybranych osobnikach
-wywo³a funkcjê mutacji, tworz¹c¹ osobniki wchodz¹ce w sk³ad nowego pokolenia. Dodatkowo udostêpnie nam obiekt `Random` 
-jako jedno z pól klasy oraz metodê `uniform()` zwracaj¹c¹ liczbê wylosowan¹ z rozk³adu jednostajnego. Dodatkowo posiada
-2 pola prywatne, które ustawiane bêd¹ w konstuktorze klas potomnych. S¹ to `probability` czyli prawdopodobieñœtwo tego 
-¿e osobnik powinien mutowaæ, oraz `radius` czyli promieñ w jakim losowana jest zmienna w metodzie `uniform()`.
+BazowÄ… klasÄ… dla krzyÅ¼owaÅ„ w  jest klasa `AbstractMutation<T>`. Odopowiada ona za mechanizm ktÃ³ry z na wybranych osobnikach
+wywoÅ‚a funkcjÄ™ mutacji, tworzÄ…cÄ… osobniki wchodzÄ…ce w skÅ‚ad nowego pokolenia. Dodatkowo udostÄ™pnie nam obiekt `Random` 
+jako jedno z pÃ³l klasy oraz metodÄ™ `uniform()` zwracajÄ…cÄ… liczbÄ™ wylosowanÄ… z rozkÅ‚adu jednostajnego. Dodatkowo posiada
+2 pola prywatne, ktÃ³re ustawiane bÄ™dÄ… w konstuktorze klas potomnych. SÄ… to `probability` czyli prawdopodobieÅ„Å›two tego 
+Å¼e osobnik powinien mutowaÄ‡, oraz `radius` czyli promieÅ„ w jakim losowana jest zmienna w metodzie `uniform()`.
 
-Jako i¿, podobnie jak `AbstractCrossover<T>`, jest to typ generyczny, implementacje tej klasy powinny rozszerzaæ klasê 
-bazow¹ z odpowiednim typem, tak by mo¿liwym by³o skorzystanie w metodach tej klasy z w³aœciwoœci konkretnego osobnika. 
+Jako iÅ¼, podobnie jak `AbstractCrossover<T>`, jest to typ generyczny, implementacje tej klasy powinny rozszerzaÄ‡ klasÄ™ 
+bazowÄ… z odpowiednim typem, tak by moÅ¼liwym byÅ‚o skorzystanie w metodach tej klasy z wÅ‚aÅ›ciwoÅ›ci konkretnego osobnika. 
 
-Nowa klasa musi jednynie implementowaæ metodê, która odpowiada za mutacjê na pojedynczym osobniku.
-Dostaje ona jako parametr starego osobnika, zwróciæ powinna natomiast nowego osobnika bêd¹cego pewn¹ mutacj¹ starego.
-Przyk³adowa implementacja poni¿ej.
+Nowa klasa musi jednynie implementowaÄ‡ metodÄ™, ktÃ³ra odpowiada za mutacjÄ™ na pojedynczym osobniku.
+Dostaje ona jako parametr starego osobnika, zwrÃ³ciÄ‡ powinna natomiast nowego osobnika bÄ™dÄ…cego pewnÄ… mutacjÄ… starego.
+PrzykÅ‚adowa implementacja poniÅ¼ej.
 ```java
 @Override
 protected PointGenotype mutate(final PointGenotype genotype) {
@@ -85,49 +85,49 @@ protected PointGenotype mutate(final PointGenotype genotype) {
 ```
 
 
-**Uwaga!** Nale¿y pamiêtaæ ¿e powinniœmy tu zwracaæ nowy obiekt, a nie zmieniaæ stary, gdy¿ tego wymaga od nas 
+**Uwaga!** NaleÅ¼y pamiÄ™taÄ‡ Å¼e powinniÅ›my tu zwracaÄ‡ nowy obiekt, a nie zmieniaÄ‡ stary, gdyÅ¼ tego wymaga od nas 
 framework _Watchmaker_.
 
 ### Inne operatory
 
-Wykorzystujemy je w momencie gdy chcemy dodaæ nowy tym operatora lub nasz osobnik nie rozszerza klasy `AbstractGenotype`.
-Nale¿y wtedy jednak rozszerzaæ interfejs `EvolutionaryOperator<T>` w którym musimy zaimplementowaæ metodê `apply()`.
+Wykorzystujemy je w momencie gdy chcemy dodaÄ‡ nowy tym operatora lub nasz osobnik nie rozszerza klasy `AbstractGenotype`.
+NaleÅ¼y wtedy jednak rozszerzaÄ‡ interfejs `EvolutionaryOperator<T>` w ktÃ³rym musimy zaimplementowaÄ‡ metodÄ™ `apply()`.
 
-## Funkcje ewaluj¹ce
+## Funkcje ewalujÄ…ce
 
-Implementacje rozwi¹zywanych problemów znajduj¹ siê w pakiecie `evalutaion`. Ka¿da z znaduj¹cych siê tam funkcji musi
-rozszerzaæ generyczny interfejs `FitnessEvaluator<T>` podaj¹c typ osobnika na którym zamierzamy dzia³aæ w miejscu `T`.
+Implementacje rozwiÄ…zywanych problemÃ³w znajdujÄ… siÄ™ w pakiecie `evalutaion`. KaÅ¼da z znadujÄ…cych siÄ™ tam funkcji musi
+rozszerzaÄ‡ generyczny interfejs `FitnessEvaluator<T>` podajÄ…c typ osobnika na ktÃ³rym zamierzamy dziaÅ‚aÄ‡ w miejscu `T`.
 
-W klasie funckji musimy zaimplementowaæ 2 metody.
+W klasie funckji musimy zaimplementowaÄ‡ 2 metody.
  
-Pierwsza, `getFitness`, która wyznacza fitness naszego osobnika. Dostaje ona na wejœciu osobnika którwego wartoœæ ma 
-wyznaczyæ oraz ca³¹ populacjê, jeœli wartoœæ jest w jakiœ sposób powi¹zana z tym jak wygl¹daj¹ inne osobniki. Powinna 
-zwracaæ wartoœæ liczbow¹ okreœlaj¹c¹ wartoœæ naszego kandydata. 
+Pierwsza, `getFitness`, ktÃ³ra wyznacza fitness naszego osobnika. Dostaje ona na wejÅ›ciu osobnika ktÃ³rwego wartoÅ›Ä‡ ma 
+wyznaczyÄ‡ oraz caÅ‚Ä… populacjÄ™, jeÅ›li wartoÅ›Ä‡ jest w jakiÅ› sposÃ³b powiÄ…zana z tym jak wyglÄ…dajÄ… inne osobniki. Powinna 
+zwracaÄ‡ wartoÅ›Ä‡ liczbowÄ… okreÅ›lajÄ…cÄ… wartoÅ›Ä‡ naszego kandydata. 
 
-Druga, `isNatural`, która zwraca `true` jeœli chcemy maksymalizowaæ nasz problem, a `false` w przypadku gdy szukamy 
+Druga, `isNatural`, ktÃ³ra zwraca `true` jeÅ›li chcemy maksymalizowaÄ‡ nasz problem, a `false` w przypadku gdy szukamy 
 minimum.
 
 ## Eksperyment
 
-Sam eksperyment konsolowy jest prosty w implementacji. O tym jak go stworzyæ mo¿na przeczytaæ w manualu _Watchmakera_,
-lub wzorowaæ siê na klasie `Experiment`. 
+Sam eksperyment konsolowy jest prosty w implementacji. O tym jak go stworzyÄ‡ moÅ¼na przeczytaÄ‡ w manualu _Watchmakera_,
+lub wzorowaÄ‡ siÄ™ na klasie `Experiment`. 
 
-Modyfikacji appletu mo¿na dokonaæ w klasie `EMASApplet`. Nowe slidery oraz przyciski mo¿emy ³¹two dodaæ wzoruj¹c siê 
-na ju¿ istniej¹cych. Jeœli natomiast chcemy stworzyæ nowy applet, polecam rozszerzyæ w tym celu klase _Watchmakera_, 
+Modyfikacji appletu moÅ¼na dokonaÄ‡ w klasie `EMASApplet`. Nowe slidery oraz przyciski moÅ¼emy Å‚Ä…two dodaÄ‡ wzorujÄ…c siÄ™ 
+na juÅ¼ istniejÄ…cych. JeÅ›li natomiast chcemy stworzyÄ‡ nowy applet, polecam rozszerzyÄ‡ w tym celu klase _Watchmakera_, 
 `AbstractExampleApplet`.
 
 ## Obserwatory
 
-Daj¹ nam one mo¿liwoœæ wgl¹du w populacjê przy ka¿dej epoce oraz zalogowania pewnych parametrów. W celu stworzenia 
-nowego obserwatora musimy rozszerzyæ klasê `IslandEvolutionObserver<T>` gdy korzystamy z silnika wyspowego
+DajÄ… nam one moÅ¼liwoÅ›Ä‡ wglÄ…du w populacjÄ™ przy kaÅ¼dej epoce oraz zalogowania pewnych parametrÃ³w. W celu stworzenia 
+nowego obserwatora musimy rozszerzyÄ‡ klasÄ™ `IslandEvolutionObserver<T>` gdy korzystamy z silnika wyspowego
 lub `EvolutionObserver<T>` gdy wykorzystujemy silnik pojedynczy. 
 
-Do rozszerzenia mamy wtedy odpowiednio 2 lub 1 metodê. 1 z nich odpowiada za update populacji jednego silnika.
-W obserwatorze wyspowym dodatkow¹ metod¹ jest wspólna dla wszystkich wysp (silników).
-Obserwatory te mo¿emy tworzyæ zarówno jako pe³noprawne klasy jak i jako anonimowe. Przyk³ad tych drugich, oraz tego w
-którym miejscu nale¿y je ustawiæ w eksperymencie znajduj¹ siê w klasie `Experiment`.
+Do rozszerzenia mamy wtedy odpowiednio 2 lub 1 metodÄ™. 1 z nich odpowiada za update populacji jednego silnika.
+W obserwatorze wyspowym dodatkowÄ… metodÄ… jest wspÃ³lna dla wszystkich wysp (silnikÃ³w).
+Obserwatory te moÅ¼emy tworzyÄ‡ zarÃ³wno jako peÅ‚noprawne klasy jak i jako anonimowe. PrzykÅ‚ad tych drugich, oraz tego w
+ktÃ³rym miejscu naleÅ¼y je ustawiÄ‡ w eksperymencie znajdujÄ… siÄ™ w klasie `Experiment`.
 
-Poni¿ej przyk³ad.
+PoniÅ¼ej przykÅ‚ad.
 ```java
 islandEvolution.addEvolutionObserver(new IslandEvolutionObserver<FloatGenotype>() {
     @Override
