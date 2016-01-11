@@ -20,6 +20,7 @@ import pl.agh.edu.evolution.factory.FloatGenotypeFactory;
 import pl.agh.edu.evolution.genotypes.FloatGenotype;
 import pl.agh.edu.evolution.mutations.NormalMutation;
 import pl.agh.edu.evolution.mutations.UniformFloatMutation;
+import pl.agh.edu.evolution.observers.ConsoleIslandObserver;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -84,22 +85,7 @@ public class Experiment {
         IslandEvolution<FloatGenotype> islandEvolution =
                 new IslandEvolution<>(islands, new RingMigration(), true, rng);
 
-        islandEvolution.addEvolutionObserver(new IslandEvolutionObserver<FloatGenotype>() {
-
-            @Override
-            public void islandPopulationUpdate(int islandIndex, PopulationData<? extends FloatGenotype> data) {
-                System.out.println("Island:" + islandIndex + "Generation: " + data.getGenerationNumber()
-                        + ", best candidate: " + data.getBestCandidate()
-                        + ", with fitness: " + data.getBestCandidateFitness());
-            }
-
-            @Override
-            public void populationUpdate(PopulationData<? extends FloatGenotype> data) {
-                System.out.println("Generation: " + data.getGenerationNumber()
-                        + ", best candidate: " + data.getBestCandidate()
-                        + ", with fitness: " + data.getBestCandidateFitness());
-            }
-        });
+        islandEvolution.addEvolutionObserver(new ConsoleIslandObserver<>());
 
         islandEvolution.evolve(120, // Population size per island.
                 5, // Elitism for each island.
