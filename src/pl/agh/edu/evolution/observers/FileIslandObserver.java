@@ -41,6 +41,7 @@ public class FileIslandObserver<T> implements IslandEvolutionObserver<T> {
      */
     private void appendHeader(final FileWriter writer) throws IOException {
         writer.append("generation,population,bestCandidate,bestFitness,elapsedTime\n");
+        writer.flush();
     }
 
     /**
@@ -58,6 +59,7 @@ public class FileIslandObserver<T> implements IslandEvolutionObserver<T> {
             writer.append(",");
             writer.append(String.valueOf(data.getElapsedTime()));
             writer.append("\n");
+            writer.flush();
         } catch(IOException e) {
             e.printStackTrace();
         }
