@@ -5,9 +5,9 @@ Projekt jest implementacją EMAS (Evolutionary Multiagent Systems) w środowisku
 na AGH. 
 
 ## Dokumenty
-[Podręcznik użytkownika](docs/user_guide.md?raw=true)
+[Podręcznik użytkownika](https://github.com/DcortezMeleth/io_evolutions/wiki/Podr%C4%99cznik-u%C5%BCytkownika)
 
-[Podręcznik developera](docs/developer_guide.md?raw=true)
+[Podręcznik developera](https://github.com/DcortezMeleth/io_evolutions/wiki/Podr%C4%99cznik-developera)
 
 [Manual frameworka Watchmaker](http://watchmaker.uncommons.org/manual/index.html)
 
